@@ -1,5 +1,7 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+
+import Api from "../Api";
 
 import { ShellAction } from "./actions";
 import { ShellState } from "./state";
@@ -7,12 +9,14 @@ import { shellReducer } from "./reducers";
 
 import LogoText from "./components/LogoText";
 import Logo from "./components/Logo";
+import { useSelector } from "react-redux";
+import { AppState } from "..";
 
-const SplashScreen: React.FC<{ onPress: () => void }> = ({ onPress }) => (
-  <TouchableOpacity style={styles.mainContainer} onPress={onPress}>
+const SplashScreen: React.FC = () => (
+  <View style={styles.mainContainer}>
     <Logo />
     <LogoText>Boom</LogoText>
-  </TouchableOpacity>
+  </View>
 );
 
 const LoggedIn: React.FC = () => {
@@ -22,16 +26,20 @@ const LoggedIn: React.FC = () => {
 };
 
 /**
- * The skeleton (or shell) component for our application.
+ * The skeleton (or shell) component for the application.
  * It wires up all the features and manages app navigation.
- * Note, navigation is currently managed eagerly, but we can
- * move to a lazy model (via something like react-router) if
- * our app becomes too large to load up front.
+ * Note, navigation is currently managed eagerly, but this can
+ * easily be moved to a lazy model (via something like react-navigation) if
+ * the app becomes too large to load up front.
  */
 const Shell: React.FC = () => {
   const [state, dispatch] = React.useReducer(shellReducer, {
     view: "loggedOut",
   });
+
+  const { items } = useSelector((state: AppState) => state.channel);
+
+  console.log(items);
 
   let mainView: JSX.Element | null = null;
   switch (state.view) {
@@ -39,17 +47,16 @@ const Shell: React.FC = () => {
       mainView = <LoggedIn />;
       break;
     default:
-      mainView = (
-        <SplashScreen
-          onPress={() =>
-            dispatch({ type: "Shell.changeView", view: "loggedIn" })
-          }
-        />
-      );
+      mainView = <SplashScreen />;
       break;
   }
 
-  return <React.Fragment>{mainView}</React.Fragment>;
+  return (
+    <React.Fragment>
+      {mainView}
+      <Api />
+    </React.Fragment>
+  );
 };
 
 const styles = StyleSheet.create({

@@ -1,8 +1,28 @@
 import React from "react";
 import * as Redux from "redux";
 import { Provider } from "react-redux";
+
+import { ApiState, initialApiState } from "./Api";
 import { ShellState, ShellAction, shellReducer } from "./Shell";
 import Shell from "./Shell";
+import { ChannelState } from "./Channel/state";
+import { ChannelAction } from "./Channel/actions";
+import { channelReducer } from "./Channel/reducers";
+
+/**
+ * Identity reducer for api state.
+ */
+const reduxApiReducer: Redux.Reducer<ApiState, any> = (
+  state: ApiState = initialApiState
+) => state;
+
+/**
+ * The `channelReducer` wrapped in a `Redux.Reducer`.
+ */
+const reduxChannelReducer: Redux.Reducer<ChannelState, ChannelAction> = (
+  state,
+  action
+) => channelReducer(state, action);
 
 /**
  * The `shellReducer` wrapped in a `Redux.Reducer`.
@@ -16,10 +36,16 @@ const reduxShellReducer: Redux.Reducer<ShellState, ShellAction> = (
  * The redux global app reducer.
  */
 const appReducer = Redux.combineReducers({
+  api: reduxApiReducer,
+  channel: reduxChannelReducer,
   shell: reduxShellReducer,
 });
 
-const appStore = Redux.createStore(appReducer, {});
+export const composeEnhancers =
+  (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  Redux.compose;
+
+const appStore = Redux.createStore(appReducer, composeEnhancers());
 
 /**
  * The combined state for the entire application. This is useful
@@ -28,7 +54,7 @@ const appStore = Redux.createStore(appReducer, {});
  */
 export type AppState = ReturnType<typeof appReducer>;
 
-export type AppAction = ShellAction;
+export type AppAction = ChannelAction | ShellAction;
 
 /**
  * The global action dispatcher. Actions which are dispatched
@@ -38,6 +64,7 @@ export type AppAction = ShellAction;
  * @param action The action which is fed into the global app reducer.
  */
 export function appDispatch(action: AppAction): void {
+  console.log(action);
   appStore.dispatch(action);
 }
 
