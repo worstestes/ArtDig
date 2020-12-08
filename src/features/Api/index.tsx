@@ -11,11 +11,13 @@ const formatFetchedArtData: (data: Record<string, any>) => ArtItem[] = (
 ) => {
   const artworkCollectionData: Record<string, any>[] = data._embedded.artworks;
 
+  console.log(artworkCollectionData);
+
   return artworkCollectionData.map((artwork) => ({
     category: artwork.category,
     date: artwork.date,
     id: artwork.id,
-    imageLink: artwork._links.thumbnail.href,
+    imageLink: artwork._links.image.href.replace("{image_version}", "large"),
     medium: artwork.medium,
     title: artwork.title,
   }));
@@ -34,8 +36,6 @@ const Api: React.FC = () => {
           step: "collectAuthToken",
         });
       case "collectAuthToken":
-        console.log("why2");
-
         let token: string;
         const fetchAuthToken = async () => {
           const res = await post(apiUrl, {
@@ -51,7 +51,7 @@ const Api: React.FC = () => {
       case "fetchArt":
         const fetchArtData = async () => {
           const artData = await get(
-            "https://api.artsy.net/api/artworks",
+            "https://api.artsy.net/api/artworks?total_count=50&size=50",
             xappToken
           );
 
@@ -63,7 +63,7 @@ const Api: React.FC = () => {
             });
 
             appDispatch({
-              type: "Channel.addArt",
+              type: "Channel.loadArt",
               items: artworks,
             });
 

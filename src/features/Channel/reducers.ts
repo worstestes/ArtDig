@@ -6,6 +6,7 @@ import { ChannelAction } from "./actions";
  */
 export const initialChannelState: ChannelState = {
   items: [],
+  favorites: [],
 };
 
 /**
@@ -17,9 +18,17 @@ export function channelReducer(
   action: ChannelAction
 ): ChannelState {
   switch (action.type) {
-    case "Channel.addArt":
-      console.log(action.items);
+    case "Channel.loadArt":
       return { ...state, items: action.items };
+
+    case "Channel.addArt":
+      const artworkId = action.item.id;
+
+      const updated = state.favorites.includes(artworkId)
+        ? state.favorites.filter((fav) => fav != artworkId)
+        : [...state.favorites, artworkId];
+
+      return { ...state, favorites: updated };
     default:
       return state;
   }

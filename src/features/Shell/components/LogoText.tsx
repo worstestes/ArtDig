@@ -12,7 +12,7 @@ const LogoText: React.FC<LogoTextProps> = ({ children }) => {
 const styles = StyleSheet.create({
   text: {
     color: "#4F4F4F",
-    fontSize: 15,
+    fontSize: 25,
   },
 });
 

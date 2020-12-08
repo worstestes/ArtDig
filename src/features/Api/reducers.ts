@@ -21,9 +21,6 @@ export function apiReducer(
   state: ApiState = initialApiState,
   action: ApiAction
 ) {
-  console.log(action);
-  //export type Type = "init" | "collectAuthToken" | "fetchArt";
-
   switch (action.type) {
     case "Api.collectAuthToken":
       return { ...state, step: action.step };

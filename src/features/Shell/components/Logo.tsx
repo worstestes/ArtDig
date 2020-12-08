@@ -1,10 +1,22 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 
-const logo = require("../../../assets/logo.png");
+interface LogoProps {
+  width?: number;
+  height?: number;
+}
 
-const Logo: React.FC = () => {
-  return <Image source={logo} style={styles.logo} />;
+const Logo: React.FC<LogoProps> = ({ width, height }) => {
+  return (
+    <Image
+      source={require("../../../assets/logo.png")}
+      style={[
+        styles.logo,
+        width ? { width: width } : null,
+        height ? { height: height } : null,
+      ]}
+    />
+  );
 };
 
 const styles = StyleSheet.create({

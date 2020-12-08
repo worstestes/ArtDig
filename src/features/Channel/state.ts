@@ -19,5 +19,10 @@ export interface ChannelState {
   /**
    * A collection of art items.
    */
-  items: any[];
+  items: ArtItem[];
+
+  /**
+   * A collection of saved art items.
+   */
+  favorites: string[];
 }

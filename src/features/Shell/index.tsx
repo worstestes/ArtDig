@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 import Api from "../Api";
 
@@ -16,15 +16,14 @@ import Channel from "../Channel";
 const SplashScreen: React.FC = () => (
   <View style={styles.mainContainer}>
     <Logo />
-    <LogoText>Boom</LogoText>
+    <LogoText>Dig This! Art Bazaar</LogoText>
+    <ActivityIndicator
+      size="large"
+      color="royalblue"
+      style={{ marginTop: 25 }}
+    />
   </View>
 );
-
-// const LoggedIn: React.FC = () => {
-//   return (
-//     <View style={{ backgroundColor: "coral", flex: 1, width: "100%" }}></View>
-//   );
-// };
 
 /**
  * The skeleton (or shell) component for the application.
