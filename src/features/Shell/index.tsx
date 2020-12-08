@@ -11,6 +11,7 @@ import LogoText from "./components/LogoText";
 import Logo from "./components/Logo";
 import { useSelector } from "react-redux";
 import { AppState } from "..";
+import Channel from "../Channel";
 
 const SplashScreen: React.FC = () => (
   <View style={styles.mainContainer}>
@@ -19,11 +20,11 @@ const SplashScreen: React.FC = () => (
   </View>
 );
 
-const LoggedIn: React.FC = () => {
-  return (
-    <View style={{ backgroundColor: "coral", flex: 1, width: "100%" }}></View>
-  );
-};
+// const LoggedIn: React.FC = () => {
+//   return (
+//     <View style={{ backgroundColor: "coral", flex: 1, width: "100%" }}></View>
+//   );
+// };
 
 /**
  * The skeleton (or shell) component for the application.
@@ -33,18 +34,12 @@ const LoggedIn: React.FC = () => {
  * the app becomes too large to load up front.
  */
 const Shell: React.FC = () => {
-  const [state, dispatch] = React.useReducer(shellReducer, {
-    view: "loggedOut",
-  });
-
-  const { items } = useSelector((state: AppState) => state.channel);
-
-  console.log(items);
+  const { view } = useSelector((state: AppState) => state.shell);
 
   let mainView: JSX.Element | null = null;
-  switch (state.view) {
+  switch (view) {
     case "loggedIn":
-      mainView = <LoggedIn />;
+      mainView = <Channel />;
       break;
     default:
       mainView = <SplashScreen />;

@@ -2,19 +2,20 @@ import React from "react";
 import * as Redux from "redux";
 import { Provider } from "react-redux";
 
-import { ApiState, initialApiState } from "./Api";
 import { ShellState, ShellAction, shellReducer } from "./Shell";
 import Shell from "./Shell";
 import { ChannelState } from "./Channel/state";
 import { ChannelAction } from "./Channel/actions";
 import { channelReducer } from "./Channel/reducers";
+import { ApiAction } from "./Api/actions";
+import { apiReducer } from "./Api/reducers";
+import { ApiState } from "./Api/state";
 
 /**
- * Identity reducer for api state.
+ * The `channelReducer` wrapped in a `Redux.Reducer`.
  */
-const reduxApiReducer: Redux.Reducer<ApiState, any> = (
-  state: ApiState = initialApiState
-) => state;
+const reduxApiReducer: Redux.Reducer<ApiState, ApiAction> = (state, action) =>
+  apiReducer(state, action);
 
 /**
  * The `channelReducer` wrapped in a `Redux.Reducer`.
@@ -54,7 +55,7 @@ const appStore = Redux.createStore(appReducer, composeEnhancers());
  */
 export type AppState = ReturnType<typeof appReducer>;
 
-export type AppAction = ChannelAction | ShellAction;
+export type AppAction = ApiAction | ChannelAction | ShellAction;
 
 /**
  * The global action dispatcher. Actions which are dispatched
@@ -64,7 +65,6 @@ export type AppAction = ChannelAction | ShellAction;
  * @param action The action which is fed into the global app reducer.
  */
 export function appDispatch(action: AppAction): void {
-  console.log(action);
   appStore.dispatch(action);
 }
 

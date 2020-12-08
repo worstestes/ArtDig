@@ -1,10 +1,10 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
 
+const logo = require("../../../assets/logo.png");
+
 const Logo: React.FC = () => {
-  return (
-    <Image source={require("../../../assets/logo.png")} style={styles.logo} />
-  );
+  return <Image source={logo} style={styles.logo} />;
 };
 
 const styles = StyleSheet.create({
