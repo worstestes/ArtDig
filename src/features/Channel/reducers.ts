@@ -25,7 +25,7 @@ export function channelReducer(
       const artworkId = action.item.id;
 
       const updated = state.favorites.includes(artworkId)
-        ? state.favorites.filter((fav) => fav != artworkId)
+        ? state.favorites.filter((fav) => fav !== artworkId)
         : [...state.favorites, artworkId];
 
       return { ...state, favorites: updated };

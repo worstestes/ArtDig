@@ -6,12 +6,15 @@ import { ArtItem } from "../Channel/state";
 
 import { get, post } from "./makeRequest";
 
+/**
+ * A function used to format the fetched artwork data from the API call into an array of
+ * manageable objects of type `ArtItem`
+ * @param data - fetched raw art data from the API caall
+ */
 const formatFetchedArtData: (data: Record<string, any>) => ArtItem[] = (
   data
 ) => {
   const artworkCollectionData: Record<string, any>[] = data._embedded.artworks;
-
-  console.log(artworkCollectionData);
 
   return artworkCollectionData.map((artwork) => ({
     category: artwork.category,

@@ -5,9 +5,14 @@ import { ArtItem } from "../state";
 interface FooterProps {
   item: ArtItem;
   addArtToFavorites: (item: ArtItem) => void;
+  isFavorite: boolean;
 }
 
-const Footer: React.FC<FooterProps> = ({ item, addArtToFavorites }) => {
+const Footer: React.FC<FooterProps> = ({
+  item,
+  addArtToFavorites,
+  isFavorite,
+}) => {
   const [footerVisible, setFooterVisibility] = React.useState<boolean>(false);
 
   if (!footerVisible) {
@@ -48,7 +53,7 @@ const Footer: React.FC<FooterProps> = ({ item, addArtToFavorites }) => {
           style={styles.favoriteButton}
           onPress={() => addArtToFavorites(item)}
         >
-          <Text>I dig it!</Text>
+          <Text>{isFavorite ? "I dig it!" : "Dig it?"}</Text>
         </TouchableOpacity>
       </View>
     );

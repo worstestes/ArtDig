@@ -8,14 +8,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useSelector } from "react-redux";
+
 import { appDispatch, AppState } from "..";
 import Logo from "../Shell/components/Logo";
 import Carousel from "./components/Carousel";
 import { ArtItem } from "./state";
+
 const { width: screenWidth } = Dimensions.get("window");
 
 const Channel: React.FC = () => {
-  const { items } = useSelector((state: AppState) => state.channel);
+  const { items, favorites } = useSelector((state: AppState) => state.channel);
 
   const [selectedImage, selectImage] = React.useState<ArtItem | null>(null);
 
@@ -32,7 +34,7 @@ const Channel: React.FC = () => {
           }}
         >
           <TouchableOpacity
-            onPress={() => alert("hello")}
+            onPress={() => alert("open menu")}
             style={{ position: "absolute", left: 15, top: 22.5 }}
           >
             <Image
@@ -56,6 +58,7 @@ const Channel: React.FC = () => {
           addArtToFavorites={(art: ArtItem) =>
             appDispatch({ type: "Channel.addArt", item: art })
           }
+          favorites={favorites}
         />
       </View>
     </View>

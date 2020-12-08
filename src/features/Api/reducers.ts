@@ -2,7 +2,9 @@ import { ApiState, Step } from "./state";
 import { ApiAction } from "./actions";
 
 /**
- * The initial state used by `apiReducer`.
+ * The initial state used by `apiReducer`. Note that while these values are hardcoded for development
+ * we would opt for utilizing environment variables using something like
+ * [dotenv](https://www.npmjs.com/package/dotenv)
  */
 export const initialApiState: ApiState = {
   xappToken:

@@ -7,6 +7,7 @@ interface CarouselProps {
   selectImage: (item: ArtItem | null) => void;
   selectedImage: ArtItem | null;
   addArtToFavorites: (item: ArtItem) => void;
+  favorites: string[];
 }
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
@@ -20,6 +21,7 @@ const Carousel: React.FC<CarouselProps> = ({
   items,
   selectImage,
   addArtToFavorites,
+  favorites,
 }) => {
   return (
     <ScrollView
@@ -27,33 +29,35 @@ const Carousel: React.FC<CarouselProps> = ({
       horizontal
       showsHorizontalScrollIndicator={false}
     >
-      {items.map((item) => {
-        return (
-          <View style={styles.imageContainer} key={item.id}>
-            <ImageModal
-              resizeMode="cover"
-              imageBackgroundColor="white"
-              style={styles.image}
-              source={{
-                uri: item.imageLink,
-              }}
-              onClose={() => selectImage(null)}
-              onTap={() => selectImage(item)}
-              renderFooter={() => (
-                <Footer addArtToFavorites={addArtToFavorites} item={item} />
-              )}
-            />
-            <Text
-              style={[
-                styles.titleText,
-                item.title.length > 18 ? { fontSize: 12 } : null,
-              ]}
-            >
-              {item.title}
-            </Text>
-          </View>
-        );
-      })}
+      {items.map((item) => (
+        <View style={styles.imageContainer} key={item.id}>
+          <ImageModal
+            resizeMode="cover"
+            imageBackgroundColor="white"
+            style={styles.image}
+            source={{
+              uri: item.imageLink,
+            }}
+            onClose={() => selectImage(null)}
+            onTap={() => selectImage(item)}
+            renderFooter={() => (
+              <Footer
+                addArtToFavorites={addArtToFavorites}
+                item={item}
+                isFavorite={favorites.includes(item.id)}
+              />
+            )}
+          />
+          <Text
+            style={[
+              styles.titleText,
+              item.title.length > 18 ? { fontSize: 12 } : null,
+            ]}
+          >
+            {item.title}
+          </Text>
+        </View>
+      ))}
     </ScrollView>
   );
 };
