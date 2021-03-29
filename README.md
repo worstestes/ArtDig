@@ -1,7 +1,7 @@
 # ArtDig!
 
 ArtDig! is a simple app built with React Native (Expo) + Typescript used to
-view unique pieces of art from across the world
+view unique pieces of art from across the world. This was primarily built to test a managed workflow (vs. a bare react native workflow) utilizing expo.
 
 ## Installation
 
