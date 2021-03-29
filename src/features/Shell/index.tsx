@@ -16,7 +16,7 @@ import Channel from "../Channel";
 const SplashScreen: React.FC = () => (
   <View style={styles.mainContainer}>
     <Logo />
-    <LogoText>Dig This! Art Bazaar</LogoText>
+    <LogoText>ArtDig! Art Bazaar</LogoText>
     <ActivityIndicator
       size="large"
       color="royalblue"
