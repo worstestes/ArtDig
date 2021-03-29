@@ -1,6 +1,6 @@
-# DigThis!
+# ArtDig!
 
-DigThis! is a simple app built with React Native (Expo) + Typescript used to
+ArtDig! is a simple app built with React Native (Expo) + Typescript used to
 view unique pieces of art from across the world
 
 ## Installation
@@ -10,7 +10,7 @@ preference.
 
 ## Structure and other considerations
 
-The DigThis! app describes its modules as feature-first. Each module
+The ArtDig! app describes its modules as feature-first. Each module
 has a collection of pure reducers, actions, and a well-defined
 state. Actions form the API for which modules can communicate
 with one another.
